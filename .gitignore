@@ -1,6 +1,8 @@
+# OS junk
 .DS_Store
 Thumbs.db
-.vscode/
-.idea/
+
+# Logs and deps
+npm-debug.log*
 node_modules/
-AppData/
+
