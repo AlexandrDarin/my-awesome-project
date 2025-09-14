@@ -1,6 +1,5 @@
-# My Awesome Project
-Учебный многостраничный сайт (index, about, contacts).
-Развёрнут через GitHub Pages.
-
-
-Добавлены: styles.css, main.js, modal форма, hero background, responsive media. Откройте index.html для просмотра.
+# Мой первый проект
+## Проект
+Этот репозиторий является каркасом для будущего веб-приложения.
+## Ссылки
+- [Публичная страница на GitHub Pages](https://AlexandrDar1n.github.io/my-awesome-project/)
