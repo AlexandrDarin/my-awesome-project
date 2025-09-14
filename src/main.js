@@ -1,5 +1,3 @@
-
-// main.js - modal, validation, phone mask, theme toggle
 document.addEventListener('DOMContentLoaded', ()=>{
 
   // Theme toggle
@@ -15,29 +13,36 @@ document.addEventListener('DOMContentLoaded', ()=>{
     localStorage.setItem(KEY, isDark ? 'dark' : 'light');
   });
 
-  // Dialog modal
-  const dlg = document.getElementById('contactDialog');
-  const openBtn = document.getElementById('openDialog');
-  const closeBtn = document.getElementById('closeDialog');
-  const form = document.getElementById('contactForm');
+  // Modal logic
+  const openBtns = document.querySelectorAll('.js-open-dialog');
+  const dialog = document.querySelector('.js-contact-dialog');
+  const closeBtn = dialog.querySelector('.js-close-dialog');
+  const form = dialog.querySelector('.js-contact-form');
+  const successMsg = form.querySelector('.form__success');
   let lastActive = null;
 
-  openBtn?.addEventListener('click', ()=>{
-    lastActive = document.activeElement;
-    if(typeof dlg.showModal === 'function'){
-      dlg.showModal();
-    } else {
-      dlg.removeAttribute('hidden');
-    }
-    dlg.querySelector('input,select,textarea,button')?.focus();
+  openBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      lastActive = document.activeElement;
+      if(typeof dialog.showModal === 'function'){
+        dialog.showModal();
+      } else {
+        dialog.removeAttribute('hidden');
+      }
+      dialog.querySelector('input,select,textarea,button')?.focus();
+      successMsg.classList.add('hidden');
+    });
   });
-  closeBtn?.addEventListener('click', ()=> dlg.close && dlg.close('cancel'));
 
-  // Validation
-  form?.addEventListener('submit', (e)=>{
+  closeBtn.addEventListener('click', ()=> dialog.close?.('cancel'));
+  dialog.addEventListener('close', ()=> lastActive?.focus());
+
+  // Validation + success
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
     [...form.elements].forEach(el => el.setCustomValidity && el.setCustomValidity(''));
+
     if(!form.checkValidity()){
-      e.preventDefault();
       const email = form.elements.email;
       if(email?.validity.typeMismatch){
         email.setCustomValidity('Введите корректный e-mail, например name@example.com');
@@ -46,14 +51,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
       [...form.elements].forEach(el => { if(el.willValidate) el.toggleAttribute('aria-invalid', !el.checkValidity()); });
       return;
     }
-    e.preventDefault();
-    // success
+
     form.reset();
-    dlg.close && dlg.close('success');
-    alert('Спасибо! Ваше сообщение отправлено (симуляция).');
+    successMsg.classList.remove('hidden');
+    setTimeout(()=> dialog.close?.('success'), 1500);
   });
 
-  // Phone mask (light)
+  // Phone mask
   const phone = document.getElementById('phone');
   phone?.addEventListener('input', ()=>{
     let digits = phone.value.replace(/\D/g,'').slice(0,11);
@@ -67,11 +71,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
     if(digits.length>=10) out += '-'+digits.slice(9,11);
     phone.value = out;
   });
+  phone?.setAttribute('pattern', '^\\+7 \\(\\d{3}\\) \\d{3}-\\d{2}-\\d{2}$');
 
-  // close dialog on escape/backdrop handled by native dialog
-  dlg?.addEventListener('close', ()=> { lastActive?.focus(); });
-
-  // make nav links keyboard friendly (aria-current toggle based on URL)
+  // Nav ARIA-current
   document.querySelectorAll('.site-nav__link').forEach(a=>{
     if(a.href === location.href || a.getAttribute('href') === location.pathname.split('/').pop()){
       a.setAttribute('aria-current','page');

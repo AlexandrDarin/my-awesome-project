@@ -1,84 +1,320 @@
-
-:root{
- /* Палитра */
- --color-bg:#ffffff; --color-fg:#0b0b0b; --color-muted:#666666;
- --color-primary:#0a84ff; --color-danger:#b00020;
- /* Типографика и размеры */
- --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
- --space-1:4px; --space-2:8px; --space-3:16px; --space-4:24px; --space-5:40px;
- /* Скругления и тени */
- --radius:12px;
- --shadow:0 1px 2px rgba(0,0,0,.08), 0 8px 24px rgba(0,0,0,.08);
+/* =========================
+  0. CSS Reset и базовые настройки
+========================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-*{ box-sizing: border-box; }
-html{ scroll-behavior: smooth; }
-html,body{ margin:0; padding:0; height:100%; background:var(--color-bg); color:var(--color-fg); font-family:var(--font-body); line-height:1.5; }
+html {
+  scroll-behavior: smooth;
+}
 
-/* Container */
-.container{ width:min(100% - 2*var(--space-4), 1120px); margin-inline:auto; padding-inline:var(--space-3); }
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-fg);
+  line-height: 1.5;
+}
 
-/* Header - BEM */
-.site-header{ background: linear-gradient(180deg, rgba(10,10,10,0.95), rgba(10,10,10,0.9)); color:#fff; }
-.site-header__inner{ display:flex; gap:var(--space-3); align-items:center; justify-content:space-between; padding:var(--space-3); }
-.site-header__brand{ color:inherit; text-decoration:none; font-weight:700; font-size:1.125rem; }
-.site-nav__list{ list-style:none; margin:0; padding:0; display:flex; gap:var(--space-3); align-items:center; }
-.site-nav__link{ color:inherit; text-decoration:none; padding:.25rem .5rem; border-radius:8px; }
-.site-nav__link:hover, .site-nav__link:focus-visible{ background:rgba(255,255,255,.06); outline:none; }
-.site-nav__link--cta{ background:var(--color-primary); color:#fff; padding:.4rem .6rem; border-radius:8px; }
-.site-nav__link[aria-current="page"]{ box-shadow: inset 0 -3px 0 rgba(255,255,255,.15); }
+/* Формы наследуют шрифт и цвет */
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
 
-/* Breadcrumbs */
-.breadcrumbs{ background:transparent; padding:var(--space-2) 0; color:var(--color-muted); }
-.breadcrumbs__list{ display:flex; gap:var(--space-2); align-items:center; margin:0; padding:0; list-style:none; }
-.breadcrumbs__link{ color:var(--color-muted); text-decoration:none; }
-.breadcrumbs__link:hover, .breadcrumbs__link:focus-visible{ text-decoration:underline; outline:none; }
+/* Медиа не выпрыгивают */
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
 
-/* Hero with CSS background image + overlay */
-.hero{ background:
-  linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,.15)),
-  url("img/hero.svg") center/cover no-repeat; color:#fff; padding:clamp(2rem,6vw,6rem) 1rem; border-radius:var(--radius); margin: var(--space-4) var(--space-3); }
-.hero__title{ margin:0 0 var(--space-2); font-size:clamp(1.5rem,3vw,2.5rem); }
-.hero__lead{ margin:0 0 var(--space-3); color:rgba(255,255,255,.9); }
+/* =========================
+  1. Токены (:root)
+========================= */
+:root {
+  /* Цвета */
+  --color-bg: #fff;
+  --color-fg: #0b0b0b;
+  --color-muted: #666;
+  --color-primary: #0a84ff;
+  --color-danger: #b00020;
+  --color-success: #0a8a3e;
 
-/* Main content */
-main{ padding:var(--space-4) var(--space-3); }
+  /* Типографика */
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-size-base: 1rem;
+  --line-height-base: 1.5;
 
-/* Footer */
-footer{ background:#111; color:#ddd; text-align:center; padding:var(--space-3); }
+  /* Отступы */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 40px;
 
-/* Buttons */
-.btn{ display:inline-block; padding:.5rem .75rem; border-radius:8px; border:1px solid transparent; background:transparent; color:inherit; cursor:pointer; text-decoration:none; }
-.btn--primary{ background:var(--color-primary); color:#fff; }
-.btn--open{ margin:var(--space-3) 0; }
+  /* Скругления и тени */
+  --radius: 12px;
+  --shadow: 0 1px 2px rgba(0,0,0,.08), 0 8px 24px rgba(0,0,0,.08);
 
-/* Form & modal (BEM) */
-.form{ padding:var(--space-3); display:flex; flex-direction:column; gap:var(--space-2); max-width:560px; }
-.form__title{ margin:0 0 var(--space-2); }
-.form__label{ font-weight:600; font-size:.95rem; margin:0; }
-.form__input{ width:100%; padding:.6rem .75rem; border:1px solid #d1d5db; border-radius:8px; }
-.form__input[aria-invalid="true"]{ border-color:var(--color-danger); box-shadow:0 0 0 3px rgba(176,0,32,0.08); }
-.form__help{ font-size:.85rem; color:var(--color-muted); margin:0; }
-.form__actions{ display:flex; gap:var(--space-2); justify-content:flex-end; margin-top:var(--space-2); }
+  /* Контейнер */
+  --container-width: 1120px;
+}
 
-/* dialog/backdrop */
-.modal{ border:none; border-radius:12px; padding:var(--space-3); max-width:92vw; width:560px; }
-modal::backdrop{} /* fallback */
-dialog::backdrop{ background:rgba(0,0,0,.5); }
+/* Тёмная тема */
+body.theme-dark {
+  --color-bg: #0b0b0b;
+  --color-fg: #f5f5f5;
+  --color-muted: #aaa;
+  --color-primary: #6aa2ff;
+  --color-success: #4CAF50;
+  --color-danger: #ff5555;
+  color-scheme: dark;
+}
 
-/* Media container */
-.media{ margin:var(--space-4) 0; }
-.media iframe{ width:100%; height:100%; border:0; }
+/* =========================
+  2. Базовая типографика
+========================= */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  margin-bottom: var(--space-3);
+}
 
-/* Images responsive */
-img{ max-width:100%; height:auto; display:block; }
+p {
+  margin-bottom: var(--space-3);
+}
 
-/* Accessibility and states */
-:where(a,button,input,select,textarea):focus-visible{ outline:2px solid var(--color-primary); outline-offset:3px; }
-:disabled,[aria-disabled="true"]{ opacity:.6; cursor:not-allowed; }
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+a:visited { color: var(--color-muted); }
+a:hover, a:focus { color: var(--color-primary); text-decoration: underline; }
+a:active { color: var(--color-primary); }
 
-/* Utility */
-.hidden{ display:none !important; }
+/* Фокус-контуры */
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
 
-/* Dark theme */
-body.theme-dark{ --color-bg:#0b0b0b; --color-fg:#f5f5f5; --color-muted:#aaa; --color-primary:#6aa2ff; color-scheme:dark; background:#070707; }
+/* Недоступные элементы */
+:disabled, [aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Якоря */
+:target {
+  outline: 2px dashed var(--color-primary);
+  outline-offset: 4px;
+}
+
+/* =========================
+  3. Контейнер и секции
+========================= */
+.container {
+  width: min(100% - 2 * var(--space-4), var(--container-width));
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+
+.section {
+  padding-block: var(--space-5);
+}
+
+.section__title {
+  margin-bottom: var(--space-3);
+}
+
+/* =========================
+  4. Header / Navigation (БЭМ)
+========================= */
+.site-header {
+  background-color: var(--color-bg);
+  box-shadow: var(--shadow);
+  padding-block: var(--space-3);
+}
+
+.site-header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: var(--container-width);
+  margin-inline: auto;
+}
+
+.site-header__brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-fg);
+}
+
+.site-nav__list {
+  display: flex;
+  gap: var(--space-3);
+  list-style: none;
+}
+
+.site-nav__link {
+  color: var(--color-fg);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius);
+  transition: background 0.2s, color 0.2s;
+}
+
+.site-nav__link:hover,
+.site-nav__link:focus-visible {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+.site-nav__link[aria-current="page"] {
+  font-weight: 700;
+  border-bottom: 2px solid var(--color-primary);
+}
+
+/* =========================
+  5. Breadcrumbs
+========================= */
+.breadcrumbs {
+  font-size: 0.875rem;
+  margin-block: var(--space-3);
+}
+
+.breadcrumbs__list {
+  display: flex;
+  gap: var(--space-2);
+  list-style: none;
+}
+
+.breadcrumbs__item::after {
+  content: ">";
+  margin-inline: var(--space-2);
+}
+
+.breadcrumbs__item:last-child::after {
+  content: "";
+}
+
+.breadcrumbs__link {
+  color: var(--color-primary);
+}
+.breadcrumbs__link:hover,
+.breadcrumbs__link:focus-visible {
+  text-decoration: underline;
+}
+
+/* =========================
+  6. Hero / фон-секция
+========================= */
+.hero {
+  background:
+    linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,.15)),
+    url("img/hero-1920.jpg") center/cover no-repeat;
+  color: #fff;
+  padding: clamp(2rem, 6vw, 6rem) 1rem;
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+/* =========================
+  7. Модалка и форма (Пр3)
+========================= */
+.modal {
+  border: none;
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  box-shadow: var(--shadow);
+  max-width: 600px;
+  width: 90%;
+}
+
+.modal::backdrop {
+  background: rgba(0,0,0,0.4);
+}
+
+.form__label {
+  display: block;
+  margin-bottom: var(--space-1);
+  font-weight: 500;
+}
+
+.form__input {
+  width: 100%;
+  padding: var(--space-2);
+  margin-bottom: var(--space-3);
+  border-radius: var(--radius);
+  border: 1px solid #ccc;
+  font-size: var(--font-size-base);
+  transition: border-color 0.2s;
+}
+
+.form__input:focus-visible {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.form__actions {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: flex-end;
+}
+
+.btn {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn--primary {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+.btn--primary:hover,
+.btn--primary:focus-visible {
+  background-color: #0070e0;
+}
+
+.form__success {
+  color: var(--color-success);
+  font-weight: 600;
+}
+
+.hidden {
+  display: none;
+}
+
+/* =========================
+  8. Карточки / изображения
+========================= */
+.card__img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--radius);
+  display: block;
+}
+
+/* =========================
+  9. Видео / media
+========================= */
+.media {
+  aspect-ratio: 16/9;
+  max-width: 960px;
+  margin-inline: auto;
+}
+
+.media iframe,
+.media video {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: var(--radius);
+}
