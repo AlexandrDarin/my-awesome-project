@@ -1,0 +1,84 @@
+
+:root{
+ /* Палитра */
+ --color-bg:#ffffff; --color-fg:#0b0b0b; --color-muted:#666666;
+ --color-primary:#0a84ff; --color-danger:#b00020;
+ /* Типографика и размеры */
+ --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+ --space-1:4px; --space-2:8px; --space-3:16px; --space-4:24px; --space-5:40px;
+ /* Скругления и тени */
+ --radius:12px;
+ --shadow:0 1px 2px rgba(0,0,0,.08), 0 8px 24px rgba(0,0,0,.08);
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+html,body{ margin:0; padding:0; height:100%; background:var(--color-bg); color:var(--color-fg); font-family:var(--font-body); line-height:1.5; }
+
+/* Container */
+.container{ width:min(100% - 2*var(--space-4), 1120px); margin-inline:auto; padding-inline:var(--space-3); }
+
+/* Header - BEM */
+.site-header{ background: linear-gradient(180deg, rgba(10,10,10,0.95), rgba(10,10,10,0.9)); color:#fff; }
+.site-header__inner{ display:flex; gap:var(--space-3); align-items:center; justify-content:space-between; padding:var(--space-3); }
+.site-header__brand{ color:inherit; text-decoration:none; font-weight:700; font-size:1.125rem; }
+.site-nav__list{ list-style:none; margin:0; padding:0; display:flex; gap:var(--space-3); align-items:center; }
+.site-nav__link{ color:inherit; text-decoration:none; padding:.25rem .5rem; border-radius:8px; }
+.site-nav__link:hover, .site-nav__link:focus-visible{ background:rgba(255,255,255,.06); outline:none; }
+.site-nav__link--cta{ background:var(--color-primary); color:#fff; padding:.4rem .6rem; border-radius:8px; }
+.site-nav__link[aria-current="page"]{ box-shadow: inset 0 -3px 0 rgba(255,255,255,.15); }
+
+/* Breadcrumbs */
+.breadcrumbs{ background:transparent; padding:var(--space-2) 0; color:var(--color-muted); }
+.breadcrumbs__list{ display:flex; gap:var(--space-2); align-items:center; margin:0; padding:0; list-style:none; }
+.breadcrumbs__link{ color:var(--color-muted); text-decoration:none; }
+.breadcrumbs__link:hover, .breadcrumbs__link:focus-visible{ text-decoration:underline; outline:none; }
+
+/* Hero with CSS background image + overlay */
+.hero{ background:
+  linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,.15)),
+  url("img/hero.svg") center/cover no-repeat; color:#fff; padding:clamp(2rem,6vw,6rem) 1rem; border-radius:var(--radius); margin: var(--space-4) var(--space-3); }
+.hero__title{ margin:0 0 var(--space-2); font-size:clamp(1.5rem,3vw,2.5rem); }
+.hero__lead{ margin:0 0 var(--space-3); color:rgba(255,255,255,.9); }
+
+/* Main content */
+main{ padding:var(--space-4) var(--space-3); }
+
+/* Footer */
+footer{ background:#111; color:#ddd; text-align:center; padding:var(--space-3); }
+
+/* Buttons */
+.btn{ display:inline-block; padding:.5rem .75rem; border-radius:8px; border:1px solid transparent; background:transparent; color:inherit; cursor:pointer; text-decoration:none; }
+.btn--primary{ background:var(--color-primary); color:#fff; }
+.btn--open{ margin:var(--space-3) 0; }
+
+/* Form & modal (BEM) */
+.form{ padding:var(--space-3); display:flex; flex-direction:column; gap:var(--space-2); max-width:560px; }
+.form__title{ margin:0 0 var(--space-2); }
+.form__label{ font-weight:600; font-size:.95rem; margin:0; }
+.form__input{ width:100%; padding:.6rem .75rem; border:1px solid #d1d5db; border-radius:8px; }
+.form__input[aria-invalid="true"]{ border-color:var(--color-danger); box-shadow:0 0 0 3px rgba(176,0,32,0.08); }
+.form__help{ font-size:.85rem; color:var(--color-muted); margin:0; }
+.form__actions{ display:flex; gap:var(--space-2); justify-content:flex-end; margin-top:var(--space-2); }
+
+/* dialog/backdrop */
+.modal{ border:none; border-radius:12px; padding:var(--space-3); max-width:92vw; width:560px; }
+modal::backdrop{} /* fallback */
+dialog::backdrop{ background:rgba(0,0,0,.5); }
+
+/* Media container */
+.media{ margin:var(--space-4) 0; }
+.media iframe{ width:100%; height:100%; border:0; }
+
+/* Images responsive */
+img{ max-width:100%; height:auto; display:block; }
+
+/* Accessibility and states */
+:where(a,button,input,select,textarea):focus-visible{ outline:2px solid var(--color-primary); outline-offset:3px; }
+:disabled,[aria-disabled="true"]{ opacity:.6; cursor:not-allowed; }
+
+/* Utility */
+.hidden{ display:none !important; }
+
+/* Dark theme */
+body.theme-dark{ --color-bg:#0b0b0b; --color-fg:#f5f5f5; --color-muted:#aaa; --color-primary:#6aa2ff; color-scheme:dark; background:#070707; }
