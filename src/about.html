@@ -1,85 +1,99 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>О нас — My Awesome Project</title>
-  <meta name="description" content="Информация о компании и команде My Awesome Project">
-  <link rel="stylesheet" href="../assets/styles.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="main.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас - El1teHarp</title>
+    <meta name="description"
+        content="Узнайте больше о студии El1teHarp: наша история, философия и команда профессионалов.">
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
 </head>
+
 <body>
-  <header class="site-header">
-    <div class="site-header__inner container">
-      <a href="index.html" class="site-header__brand">My Awesome Project</a>
-      <nav>
-        <ul class="site-nav__list">
-          <li><a href="index.html" class="site-nav__link">Главная</a></li>
-          <li><a href="about.html" class="site-nav__link" aria-current="page">О нас</a></li>
-          <li><a href="contacts.html" class="site-nav__link">Контакты</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+    <!-- Шапка сайта -->
+    <header>
+        <a class="site-header__brand" href="/">El1teHarp</a>
+        <nav class="site-nav" aria-label="Основная навигация">
+            <ul class="site-nav__list">
+                <li class="site-nav__item"><a class="site-nav__link" href="index.html">Главная</a></li>
+                <li class="site-nav__item"><a class="site-nav__link" href="about.html">О нас</a></li>
+                <li class="site-nav__item"><a class="site-nav__link site-nav__link--
+cta" href="#contacts">Связаться</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <nav class="breadcrumbs" aria-label="Хлебные крошки">
-    <ol class="breadcrumbs__list container">
-      <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="index.html">Главная</a></li>
-      <li class="breadcrumbs__item" aria-current="page">О нас</li>
-    </ol>
-  </nav>
+    <!-- Уникальное основное содержимое страницы -->
+    <main>
+        <button class="theme-toggle" type="button" aria-pressed="false">Тема</button>
+        <script defer>
+            const KEY = 'theme', btn = document.querySelector('.theme-toggle');
+            const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
+            // Автовыбор: системная тема или сохранённый выбор пользователя
+            if (localStorage.getItem(KEY) === 'dark' || (!localStorage.getItem(KEY) &&
+                prefersDark)) {
+                document.body.classList.add('theme-dark');
+                btn?.setAttribute('aria-pressed', 'true');
+            }
+            // Переключение по кнопке с сохранением в localStorage
+            btn?.addEventListener('click', () => {
+                const isDark = document.body.classList.toggle('theme-dark');
+                btn.setAttribute('aria-pressed', String(isDark));
+                localStorage.setItem(KEY, isDark ? 'dark' : 'light');
+            });
+        </script>
+        <!-- Простые "хлебные крошки" -->
+        <nav aria-label="Хлебные крошки">
+            <a href="index.html">Главная</a> -
+            <span>О нас</span>
+        </nav>
 
-  <main class="container">
-    <h1>О компании</h1>
-    <section>
-      <h2>История</h2>
-      <p>Текст о истории компании...</p>
-    </section>
-    <section>
-      <h2>Команда</h2>
-      <p>Текст о команде...</p>
-    </section>
+        <h1>О студии El1teHarp</h1>
 
-    <button class="btn btn--open js-open-dialog" type="button">Написать нам</button>
+        <!-- Секция "Наша история" -->
+        <section>
+            <h2>Наша история</h2>
+            <p>Текст о том, как все начиналось...</p>
+        </section>
 
-    <dialog class="modal js-contact-dialog" aria-labelledby="dialogTitle">
-      <form class="form js-contact-form" method="dialog" novalidate>
-        <h2 id="dialogTitle" class="form__title">Обратная связь</h2>
+        <!-- Секция "Наша команда" -->
+        <section>
+            <h2>Наша команда</h2>
+            <p>Текст о команде...</p>
+        </section>
+    </main>
 
-        <label class="form__label" for="name">Имя</label>
-        <input class="form__input" id="name" name="name" type="text" required minlength="2" autocomplete="given-name">
-
-        <label class="form__label" for="email">E-mail</label>
-        <input class="form__input" id="email" name="email" type="email" required autocomplete="email">
-
-        <label class="form__label" for="phone">Телефон</label>
-        <input class="form__input" id="phone" name="phone" type="tel" placeholder="+7 (___) ___-__-__" pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$" required>
-        <small class="form__help">Формат: +7 (900) 000-00-00</small>
-
-        <label class="form__label" for="date">Дата</label>
-        <input class="form__input" id="date" name="date" type="date">
-
-        <label class="form__label" for="topic">Тема</label>
-        <select class="form__input" id="topic" name="topic" required>
-          <option value="">Выберите тему</option>
-          <option>Вопрос</option>
-          <option>Заказ</option>
-        </select>
-
-        <label class="form__label" for="message">Сообщение</label>
-        <textarea class="form__input" id="message" name="message" rows="4" required></textarea>
-
-        <div class="form__actions">
-          <button class="btn js-close-dialog" type="button">Закрыть</button>
-          <button class="btn btn--primary" type="submit">Отправить</button>
-        </div>
-      </form>
-    </dialog>
-  </main>
-
-  <footer>
-    <p>&copy; <span id="year"></span> My Awesome Project</p>
-  </footer>
-
-  <script src="../assets/main.js" defer></script>
+    <!-- Подвал сайта -->
+    <footer>
+        <p>&copy; 2025 El1teHarp. Все права защищены.</p>
+        <p>Телефон: +7 (926) 180-90-29</p>
+    </footer>
 </body>
+<img>
+<!-- width/height уменьшают «скачок» макета (CLS); alt обязателен -->
+<img src="img/card-640.jpg" alt="Проект: макет мобильного приложения" width="640" height="360" loading="lazy"
+    decoding="async">
+<!-- Браузер сам выбирает лучший ресурс по ширине контейнера -->
+<img src="img/card-640.jpg" srcset="img/card-640.jpg 640w, img/card-960.jpg 960w, img/card-1280.jpg
+1280w" sizes="(max-width: 700px) 92vw, (max-width: 1200px) 640px, 960px" alt="Проект: макет мобильного приложения"
+    loading="lazy">
+<!-- <picture> позволяет предложить AVIF/WebP, а <img> — надёжный фолбэк -->
+<picture>
+    <source type="image/avif" srcset="img/card.avif">
+    <source type="image/webp" srcset="img/card.webp">
+    <img src="img/card.jpg" alt="Проект: макет мобильного приложения" width="640" height="360">
+</picture>
+<!-- Добавьте субтитры через <track> (WebVTT); poster — превью-кадр -->
+<video class="media" controls preload="metadata" playsinline
+width="960" height="540" poster="video/poster.jpg">
+<source src="video/teaser-1080.mp4" type="video/mp4"> <!-- основной
+формат -->
+<source src="video/teaser-720.webm" type="video/webm"> <!-- альтернатива -->
+<track kind="captions" srclang="ru" src="video/captions-ru.vtt"
+label="Русские субтитры" default>
+Ваш браузер не поддерживает видео.
+</video>
 </html>
