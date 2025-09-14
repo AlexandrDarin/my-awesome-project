@@ -1,84 +1,67 @@
-document.addEventListener('DOMContentLoaded', ()=>{
-
-  // Theme toggle
-  const KEY='theme', btn=document.querySelector('.theme-toggle');
-  const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
-  if(localStorage.getItem(KEY)==='dark' || (!localStorage.getItem(KEY) && prefersDark)){
-    document.body.classList.add('theme-dark');
-    btn?.setAttribute('aria-pressed','true');
-  }
-  btn?.addEventListener('click', ()=>{
-    const isDark = document.body.classList.toggle('theme-dark');
-    btn.setAttribute('aria-pressed', String(isDark));
-    localStorage.setItem(KEY, isDark ? 'dark' : 'light');
-  });
-
-  // Modal logic
-  const openBtns = document.querySelectorAll('.js-open-dialog');
-  const dialog = document.querySelector('.js-contact-dialog');
-  const closeBtn = dialog.querySelector('.js-close-dialog');
-  const form = dialog.querySelector('.js-contact-form');
-  const successMsg = form.querySelector('.form__success');
-  let lastActive = null;
-
-  openBtns.forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      lastActive = document.activeElement;
-      if(typeof dialog.showModal === 'function'){
-        dialog.showModal();
-      } else {
-        dialog.removeAttribute('hidden');
-      }
-      dialog.querySelector('input,select,textarea,button')?.focus();
-      successMsg.classList.add('hidden');
-    });
-  });
-
-  closeBtn.addEventListener('click', ()=> dialog.close?.('cancel'));
-  dialog.addEventListener('close', ()=> lastActive?.focus());
-
-  // Validation + success
-  form.addEventListener('submit', (e)=>{
-    e.preventDefault();
-    [...form.elements].forEach(el => el.setCustomValidity && el.setCustomValidity(''));
-
-    if(!form.checkValidity()){
-      const email = form.elements.email;
-      if(email?.validity.typeMismatch){
-        email.setCustomValidity('Введите корректный e-mail, например name@example.com');
-      }
-      form.reportValidity();
-      [...form.elements].forEach(el => { if(el.willValidate) el.toggleAttribute('aria-invalid', !el.checkValidity()); });
-      return;
-    }
-
-    form.reset();
-    successMsg.classList.remove('hidden');
-    setTimeout(()=> dialog.close?.('success'), 1500);
-  });
-
-  // Phone mask
-  const phone = document.getElementById('phone');
-  phone?.addEventListener('input', ()=>{
-    let digits = phone.value.replace(/\D/g,'').slice(0,11);
-    digits = digits.replace(/^8/, '7');
-    let out = '';
-    if(digits.length>0) out = '+'+digits[0];
-    if(digits.length>1) out += ' ('+digits.slice(1,4);
-    if(digits.length>=4) out += ')';
-    if(digits.length>=5) out += ' '+digits.slice(4,7);
-    if(digits.length>=8) out += '-'+digits.slice(7,9);
-    if(digits.length>=10) out += '-'+digits.slice(9,11);
-    phone.value = out;
-  });
-  phone?.setAttribute('pattern', '^\\+7 \\(\\d{3}\\) \\d{3}-\\d{2}-\\d{2}$');
-
-  // Nav ARIA-current
-  document.querySelectorAll('.site-nav__link').forEach(a=>{
-    if(a.href === location.href || a.getAttribute('href') === location.pathname.split('/').pop()){
-      a.setAttribute('aria-current','page');
-    } else {
-      a.removeAttribute('aria-current');
-    }
+/* ======= Модалка ======= */
+const modalButtons = document.querySelectorAll('.js-open-dialog');
+modalButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const dialog = document.querySelector('.js-contact-dialog');
+    dialog.showModal();
+    dialog.querySelector('input').focus();
   });
 });
+
+const closeButtons = document.querySelectorAll('.js-close-dialog');
+closeButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.closest('dialog').close();
+  });
+});
+
+/* ======= Esc закрытие ======= */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('dialog').forEach(d => d.close());
+  }
+});
+
+/* ======= Переключение темы ======= */
+const themeToggle = document.querySelector('.theme-toggle');
+if (themeToggle) {
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+  });
+}
+
+/* ======= Маска телефона ======= */
+document.querySelectorAll('input[type="tel"]').forEach(input => {
+  input.addEventListener('input', e => {
+    let numbers = e.target.value.replace(/\D/g, '');
+    if (numbers.startsWith('8')) numbers = '7' + numbers.slice(1);
+    if (!numbers.startsWith('7')) numbers = '7' + numbers;
+    let formatted = '+7 ';
+    if (numbers.length > 1) formatted += '(' + numbers.slice(1,4);
+    if (numbers.length >= 4) formatted += ') ' + numbers.slice(4,7);
+    if (numbers.length >= 7) formatted += '-' + numbers.slice(7,9);
+    if (numbers.length >= 9) formatted += '-' + numbers.slice(9,11);
+    e.target.value = formatted;
+  });
+});
+
+/* ======= Валидация формы ======= */
+document.querySelectorAll('.js-contact-form').forEach(form => {
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    let valid = form.checkValidity();
+    [...form.elements].forEach(el => {
+      if (el.tagName !== 'BUTTON') el.ariaInvalid = !el.checkValidity();
+    });
+    if (!valid) {
+      form.reportValidity();
+      return;
+    }
+    alert('Форма успешно отправлена!');
+    form.reset();
+    form.closest('dialog').close();
+  });
+});
+
+/* ======= Текущий год в футере ======= */
+document.getElementById('year')?.textContent = new Date().getFullYear();

@@ -6,7 +6,6 @@
   <title>О нас — My Awesome Project</title>
   <meta name="description" content="Информация о компании и команде My Awesome Project">
   <link rel="stylesheet" href="styles.css">
-  <script src="main.js" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -40,10 +39,8 @@
       <p>Текст о команде...</p>
     </section>
 
-    <!-- Кнопка открытия модалки -->
     <button class="btn btn--open js-open-dialog" type="button">Написать нам</button>
 
-    <!-- Модалка с формой -->
     <dialog class="modal js-contact-dialog" aria-labelledby="dialogTitle">
       <form class="form js-contact-form" method="dialog" novalidate>
         <h2 id="dialogTitle" class="form__title">Обратная связь</h2>
@@ -79,4 +76,12 @@
         <p class="form__success hidden" role="alert">Спасибо! Ваше сообщение отправлено.</p>
       </form>
     </dialog>
-  </
+  </main>
+
+  <footer>
+    <p>&copy; <span id="year"></span> My Awesome Project</p>
+  </footer>
+
+  <script src="main.js" defer></script>
+</body>
+</html>
