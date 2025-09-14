@@ -15,10 +15,7 @@
 }
 
 /* ======= Базовые стили ======= */
-* {
-  box-sizing: border-box;
-}
-
+* { box-sizing: border-box; }
 body {
   font-family: sans-serif;
   margin: 0;
@@ -27,25 +24,10 @@ body {
   color: var(--color-fg);
   scroll-behavior: smooth;
 }
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-.container {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 var(--space-m);
-}
-
-h1, h2 {
-  margin: var(--space-m) 0;
-}
-
-button {
-  cursor: pointer;
-}
+a { text-decoration: none; color: inherit; }
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--space-m); }
+h1, h2 { margin: var(--space-m) 0; }
+button { cursor: pointer; }
 
 /* ======= Кнопки ======= */
 .btn {
@@ -57,12 +39,7 @@ button {
   border-radius: var(--radius);
   transition: background 0.2s;
 }
-
-.btn:hover,
-.btn:focus-visible {
-  background: var(--color-hover);
-  outline: none;
-}
+.btn:hover, .btn:focus-visible { background: var(--color-hover); outline: none; }
 
 /* ======= Header ======= */
 .header, .site-header {
@@ -71,75 +48,27 @@ button {
   padding: var(--space-m);
   text-align: center;
 }
-
 .site-header__inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
 }
-
-.site-nav__list {
-  list-style: none;
-  display: flex;
-  gap: var(--space-m);
-  padding: 0;
-  margin: 0;
-}
-
-.site-nav__link[aria-current="page"] {
-  font-weight: bold;
-  text-decoration: underline;
-}
+.site-nav__list { list-style: none; display: flex; gap: var(--space-m); padding: 0; margin: 0; }
+.site-nav__link[aria-current="page"] { font-weight: bold; text-decoration: underline; }
 
 /* ======= Hero ======= */
-.hero {
-  position: relative;
-  overflow: hidden;
-  max-height: 300px;
-}
-
-.hero__img {
-  width: 100%;
-  display: block;
-  object-fit: cover;
-}
+.hero, .hero-img { width: 100%; display: block; object-fit: cover; }
 
 /* ======= Breadcrumbs ======= */
-.breadcrumbs__list {
-  list-style: none;
-  display: flex;
-  gap: var(--space-xs);
-  padding: var(--space-s) 0;
-  margin: 0;
-}
-
-.breadcrumbs__item::after {
-  content: "/";
-  margin-left: var(--space-xs);
-}
-
-.breadcrumbs__item:last-child::after {
-  content: "";
-}
-
-.breadcrumbs__link {
-  color: var(--color-primary);
-}
+.breadcrumbs__list { list-style: none; display: flex; gap: var(--space-xs); padding: var(--space-s) 0; margin: 0; }
+.breadcrumbs__item::after { content: "/"; margin-left: var(--space-xs); }
+.breadcrumbs__item:last-child::after { content: ""; }
+.breadcrumbs__link { color: var(--color-primary); }
 
 /* ======= Modal ======= */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  place-items: center;
-  z-index: 1000;
-}
-
-.modal[open] {
-  display: grid;
-}
-
+.modal { display: none; position: fixed; inset: 0; place-items: center; z-index: 1000; }
+.modal[open] { display: grid; }
 .modal__window {
   background: #fff;
   padding: var(--space-l);
@@ -148,7 +77,6 @@ button {
   width: 100%;
   position: relative;
 }
-
 .modal__close {
   position: absolute;
   top: var(--space-s);
@@ -158,11 +86,8 @@ button {
   font-size: 1.5rem;
 }
 
-.form__label {
-  display: block;
-  margin-top: var(--space-s);
-}
-
+/* ======= Формы ======= */
+.form__label { display: block; margin-top: var(--space-s); }
 .form__input, .form__textarea, .form__select {
   width: 100%;
   padding: var(--space-s);
@@ -170,34 +95,18 @@ button {
   border: 1px solid #ccc;
   border-radius: var(--radius);
 }
-
-.form__textarea {
-  resize: vertical;
-}
-
+.form__textarea { resize: vertical; }
 input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="true"] {
   border-color: red;
 }
 
-/* ======= Theme Dark ======= */
+/* ======= Тёмная тема ======= */
 body.dark {
   background: var(--color-dark-bg);
   color: var(--color-dark-fg);
 }
-
-body.dark .btn {
-  background: var(--color-hover);
-}
-
-body.dark .site-header, body.dark .header {
-  background: var(--color-dark-fg);
-  color: var(--color-dark-bg);
-}
+body.dark .btn { background: var(--color-hover); }
+body.dark .site-header, body.dark .header { background: var(--color-dark-fg); color: var(--color-dark-bg); }
 
 /* ======= Footer ======= */
-footer {
-  text-align: center;
-  padding: var(--space-m);
-  background: var(--color-fg);
-  color: #fff;
-}
+footer { text-align: center; padding: var(--space-m); background: var(--color-fg); color: #fff; }

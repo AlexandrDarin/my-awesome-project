@@ -1,15 +1,13 @@
-/* ======= Модалка ======= */
-const modalButtons = document.querySelectorAll('.js-open-dialog');
-modalButtons.forEach(btn => {
+/* ======= Модальные окна ======= */
+document.querySelectorAll('.js-open-dialog').forEach(btn => {
   btn.addEventListener('click', () => {
     const dialog = document.querySelector('.js-contact-dialog');
     dialog.showModal();
-    dialog.querySelector('input').focus();
+    dialog.querySelector('input, textarea, select')?.focus();
   });
 });
 
-const closeButtons = document.querySelectorAll('.js-close-dialog');
-closeButtons.forEach(btn => {
+document.querySelectorAll('.js-close-dialog').forEach(btn => {
   btn.addEventListener('click', () => {
     btn.closest('dialog').close();
   });
@@ -45,7 +43,7 @@ document.querySelectorAll('input[type="tel"]').forEach(input => {
   });
 });
 
-/* ======= Валидация формы ======= */
+/* ======= Валидация форм ======= */
 document.querySelectorAll('.js-contact-form').forEach(form => {
   form.addEventListener('submit', e => {
     e.preventDefault();
@@ -53,10 +51,7 @@ document.querySelectorAll('.js-contact-form').forEach(form => {
     [...form.elements].forEach(el => {
       if (el.tagName !== 'BUTTON') el.ariaInvalid = !el.checkValidity();
     });
-    if (!valid) {
-      form.reportValidity();
-      return;
-    }
+    if (!valid) { form.reportValidity(); return; }
     alert('Форма успешно отправлена!');
     form.reset();
     form.closest('dialog').close();
