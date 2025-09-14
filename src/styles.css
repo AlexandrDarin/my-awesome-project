@@ -107,7 +107,7 @@ body.theme-dark {
 }
 
 /* Порядок важен: link → visited → hover → active */
-a:link {color: #ff00dd;}
+a:link {color: #00f7ff;}
 
 a:visited {color: rgb(247, 8, 8);}
 
