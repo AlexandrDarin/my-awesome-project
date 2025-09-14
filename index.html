@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Главная — My Awesome Project</title>
   <meta name="description" content="Главная страница учебного сайта My Awesome Project">
-  <link rel="stylesheet" href="src/style.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js" defer></script>
 </head>
 <body>
   <header>
@@ -18,6 +19,56 @@
       </ul>
     </nav>
   </header>
+
+  <section class="hero">
+    <div class="container hero__inner">
+      <h1 class="hero__title">Добро пожаловать в My Awesome Project</h1>
+      <p class="hero__lead">Небольшой пример многостраничного сайта с формой и модальным окном.</p>
+      <a class="btn btn--primary" href="#contacts">Связаться</a>
+    </div>
+  </section>
+
+  <button class="btn btn--open" id="openDialog" type="button">Написать нам</button>
+
+  <dialog id="contactDialog" class="modal" aria-labelledby="dialogTitle">
+    <form id="contactForm" class="form" method="dialog" novalidate>
+      <h2 id="dialogTitle" class="form__title">Обратная связь</h2>
+      <label class="form__label" for="name">Имя</label>
+      <input class="form__input" id="name" name="name" type="text" required minlength="2" autocomplete="given-name">
+
+      <label class="form__label" for="email">E-mail</label>
+      <input class="form__input" id="email" name="email" type="email" required autocomplete="email">
+
+      <label class="form__label" for="phone">Телефон</label>
+      <input class="form__input" id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" aria-describedby="phoneHelp" placeholder="+7 (___) ___-__-__" required pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$">
+      <small id="phoneHelp" class="form__help">Формат: +7 (900) 000-00-00</small>
+
+      <label class="form__label" for="date">Дата</label>
+      <input class="form__input" id="date" name="date" type="date">
+
+      <label class="form__label" for="topic">Тема</label>
+      <select class="form__input" id="topic" name="topic" required>
+        <option value="">Выберите тему</option>
+        <option>Вопрос</option>
+        <option>Заказ</option>
+      </select>
+
+      <label class="form__label" for="message">Сообщение</label>
+      <textarea class="form__input" id="message" name="message" rows="4" required></textarea>
+
+      <div class="form__actions">
+        <button class="btn" type="button" id="closeDialog">Закрыть</button>
+        <button class="btn btn--primary" type="submit">Отправить</button>
+      </div>
+    </form>
+  </dialog>
+
+  <section class="media container" aria-label="Видео">
+    <div style="aspect-ratio:16/9;">
+      <iframe src="https://www.youtube.com/embed/YE7VzlLtp-4" title="Видео о проекте" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </section>
+
   <main>
     <h1>Добро пожаловать!</h1>
     <section id="services">
@@ -39,6 +90,6 @@
   <footer>
     <p>&copy; <span id="year"></span> My Awesome Project</p>
   </footer>
-  <script src="src/script.js"></script>
+  
 </body>
 </html>
