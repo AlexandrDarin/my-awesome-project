@@ -1,320 +1,76 @@
-/* =========================
-  0. CSS Reset и базовые настройки
-========================= */
-* {
-  box-sizing: border-box;
+body {
+  font-family: sans-serif;
   margin: 0;
   padding: 0;
+  background: #f5f5f5;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: var(--font-body);
-  background: var(--color-bg);
-  color: var(--color-fg);
-  line-height: 1.5;
-}
-
-/* Формы наследуют шрифт и цвет */
-button, input, select, textarea {
-  font: inherit;
-  color: inherit;
-}
-
-/* Медиа не выпрыгивают */
-img, video {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* =========================
-  1. Токены (:root)
-========================= */
-:root {
-  /* Цвета */
-  --color-bg: #fff;
-  --color-fg: #0b0b0b;
-  --color-muted: #666;
-  --color-primary: #0a84ff;
-  --color-danger: #b00020;
-  --color-success: #0a8a3e;
-
-  /* Типографика */
-  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  --font-size-base: 1rem;
-  --line-height-base: 1.5;
-
-  /* Отступы */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 16px;
-  --space-4: 24px;
-  --space-5: 40px;
-
-  /* Скругления и тени */
-  --radius: 12px;
-  --shadow: 0 1px 2px rgba(0,0,0,.08), 0 8px 24px rgba(0,0,0,.08);
-
-  /* Контейнер */
-  --container-width: 1120px;
-}
-
-/* Тёмная тема */
-body.theme-dark {
-  --color-bg: #0b0b0b;
-  --color-fg: #f5f5f5;
-  --color-muted: #aaa;
-  --color-primary: #6aa2ff;
-  --color-success: #4CAF50;
-  --color-danger: #ff5555;
-  color-scheme: dark;
-}
-
-/* =========================
-  2. Базовая типографика
-========================= */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 600;
-  margin-bottom: var(--space-3);
-}
-
-p {
-  margin-bottom: var(--space-3);
-}
-
-a {
-  color: var(--color-primary);
-  text-decoration: none;
-}
-a:visited { color: var(--color-muted); }
-a:hover, a:focus { color: var(--color-primary); text-decoration: underline; }
-a:active { color: var(--color-primary); }
-
-/* Фокус-контуры */
-:where(a, button, input, select, textarea):focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-}
-
-/* Недоступные элементы */
-:disabled, [aria-disabled="true"] {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* Якоря */
-:target {
-  outline: 2px dashed var(--color-primary);
-  outline-offset: 4px;
-}
-
-/* =========================
-  3. Контейнер и секции
-========================= */
-.container {
-  width: min(100% - 2 * var(--space-4), var(--container-width));
-  margin-inline: auto;
-  padding-inline: var(--space-4);
-}
-
-.section {
-  padding-block: var(--space-5);
-}
-
-.section__title {
-  margin-bottom: var(--space-3);
-}
-
-/* =========================
-  4. Header / Navigation (БЭМ)
-========================= */
-.site-header {
-  background-color: var(--color-bg);
-  box-shadow: var(--shadow);
-  padding-block: var(--space-3);
-}
-
-.site-header__inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: var(--container-width);
-  margin-inline: auto;
-}
-
-.site-header__brand {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--color-fg);
-}
-
-.site-nav__list {
-  display: flex;
-  gap: var(--space-3);
-  list-style: none;
-}
-
-.site-nav__link {
-  color: var(--color-fg);
-  padding: var(--space-1) var(--space-2);
-  border-radius: var(--radius);
-  transition: background 0.2s, color 0.2s;
-}
-
-.site-nav__link:hover,
-.site-nav__link:focus-visible {
-  background-color: var(--color-primary);
+.header {
+  background: #333;
   color: #fff;
-}
-
-.site-nav__link[aria-current="page"] {
-  font-weight: 700;
-  border-bottom: 2px solid var(--color-primary);
-}
-
-/* =========================
-  5. Breadcrumbs
-========================= */
-.breadcrumbs {
-  font-size: 0.875rem;
-  margin-block: var(--space-3);
-}
-
-.breadcrumbs__list {
-  display: flex;
-  gap: var(--space-2);
-  list-style: none;
-}
-
-.breadcrumbs__item::after {
-  content: ">";
-  margin-inline: var(--space-2);
-}
-
-.breadcrumbs__item:last-child::after {
-  content: "";
-}
-
-.breadcrumbs__link {
-  color: var(--color-primary);
-}
-.breadcrumbs__link:hover,
-.breadcrumbs__link:focus-visible {
-  text-decoration: underline;
-}
-
-/* =========================
-  6. Hero / фон-секция
-========================= */
-.hero {
-  background:
-    linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,.15)),
-    url("img/hero-1920.jpg") center/cover no-repeat;
-  color: #fff;
-  padding: clamp(2rem, 6vw, 6rem) 1rem;
-  border-radius: var(--radius);
+  padding: 1rem;
   text-align: center;
 }
 
-/* =========================
-  7. Модалка и форма (Пр3)
-========================= */
-.modal {
-  border: none;
-  border-radius: var(--radius);
-  padding: var(--space-4);
-  box-shadow: var(--shadow);
-  max-width: 600px;
-  width: 90%;
-}
-
-.modal::backdrop {
-  background: rgba(0,0,0,0.4);
-}
-
-.form__label {
+.hero-img {
   display: block;
-  margin-bottom: var(--space-1);
-  font-weight: 500;
-}
-
-.form__input {
   width: 100%;
-  padding: var(--space-2);
-  margin-bottom: var(--space-3);
-  border-radius: var(--radius);
-  border: 1px solid #ccc;
-  font-size: var(--font-size-base);
-  transition: border-color 0.2s;
-}
-
-.form__input:focus-visible {
-  border-color: var(--color-primary);
-  outline: none;
-}
-
-.form__actions {
-  display: flex;
-  gap: var(--space-2);
-  justify-content: flex-end;
+  max-height: 300px;
+  object-fit: cover;
 }
 
 .btn {
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius);
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  background: #0078d4;
+  color: white;
   border: none;
+  border-radius: 0.5rem;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
 }
 
-.btn--primary {
-  background-color: var(--color-primary);
-  color: #fff;
+.btn:hover {
+  background: #005fa3;
 }
 
-.btn--primary:hover,
-.btn--primary:focus-visible {
-  background-color: #0070e0;
-}
-
-.form__success {
-  color: var(--color-success);
-  font-weight: 600;
-}
-
-.hidden {
-  display: none;
-}
-
-/* =========================
-  8. Карточки / изображения
-========================= */
-.card__img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  object-position: center;
-  border-radius: var(--radius);
-  display: block;
-}
-
-/* =========================
-  9. Видео / media
-========================= */
-.media {
-  aspect-ratio: 16/9;
-  max-width: 960px;
-  margin-inline: auto;
-}
-
-.media iframe,
-.media video {
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  border: 0;
-  border-radius: var(--radius);
+  display: grid;
+  place-items: center;
+}
+
+.modal__backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+}
+
+.modal__window {
+  position: relative;
+  background: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  max-width: 400px;
+  z-index: 10;
+}
+
+.modal__close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+input[aria-invalid="true"], textarea[aria-invalid="true"] {
+  border: 2px solid red;
 }
