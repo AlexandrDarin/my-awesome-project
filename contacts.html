@@ -6,7 +6,6 @@
   <title>Контакты — My Awesome Project</title>
   <meta name="description" content="Свяжитесь с My Awesome Project: телефон, адрес, email">
   <link rel="stylesheet" href="styles.css">
-  <script src="main.js" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -38,10 +37,8 @@
       <p>Адрес: г. Москва, ул. Примерная, 1</p>
     </section>
 
-    <!-- Кнопка открытия модалки -->
     <button class="btn btn--open js-open-dialog" type="button">Написать нам</button>
 
-    <!-- Модалка с формой -->
     <dialog class="modal js-contact-dialog" aria-labelledby="dialogTitle">
       <form class="form js-contact-form" method="dialog" novalidate>
         <h2 id="dialogTitle" class="form__title">Обратная связь</h2>
@@ -82,5 +79,7 @@
   <footer>
     <p>&copy; <span id="year"></span> My Awesome Project</p>
   </footer>
+
+  <script src="main.js" defer></script>
 </body>
 </html>
